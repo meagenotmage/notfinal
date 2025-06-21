@@ -1,31 +1,24 @@
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
-const announcementRoutes = require('./routes/announcements'); // ✅ Add this
+const cors = require('cors');
+const announcementsRoutes = require('./routes/announcements');
 
 const app = express();
-const PORT = 5000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use('/api/announcements', require('./routes/announcements'));
- // ✅ Add this
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('MongoDB connected'))
+  .catch((err) => console.error('MongoDB error:', err));
 
-// MongoDB connection
-mongoose.connect('mongodb://localhost:27017/mycollege', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-mongoose.connection.once('open', () => {
-  console.log('MongoDB connected');
+app.use('/api/announcements', announcementsRoutes);
+
+app.get('/', (req, res) => {
+  res.send('API is working');
 });
 
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-
-

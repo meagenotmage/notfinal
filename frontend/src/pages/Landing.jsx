@@ -87,7 +87,7 @@ export default function Landing() {
   const today = new Date();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/announcements')
+    axios.get('https://coc-website.onrender.com/api/announcements')
       .then(res => setAnnouncements(res.data))
       .catch(err => {
         console.error(err);

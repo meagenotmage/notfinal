@@ -87,17 +87,29 @@ export default function Landing() {
   const today = new Date();
 
   useEffect(() => {
-    axios.get('`${process.env.https://coc-website.onrender.com}/api/announcements')
-      .then(res => setAnnouncements(res.data))
-      .catch(err => {
-        console.error(err);
-        setAnnouncements([
-          { title: 'Hello, Welcome Back', description: 'Ready to kickstart the year? Meet us at the lobby at 10:30 AM.', date: '2025-06-21T23:42:00Z' },
-          { title: 'Opening of Classes', description: 'Classes start August 5, 2025.', date: '2025-06-21T23:05:00Z' },
-          { title: 'Opening of Classes', description: 'Classes start August 5, 2025.', date: '2025-06-21T23:04:00Z' },
-        ]);
-      });
-  }, []);
+  axios.get('https://coc-website.onrender.com/api/announcements')
+    .then(res => setAnnouncements(res.data))
+    .catch(err => {
+      console.error(err);
+      setAnnouncements([
+        {
+          title: 'Hello, Welcome Back',
+          description: 'Ready to kickstart the year? Meet us at the lobby at 10:30 AM.',
+          date: '2025-06-21T23:42:00Z',
+        },
+        {
+          title: 'Opening of Classes',
+          description: 'Classes start August 5, 2025.',
+          date: '2025-06-21T23:05:00Z',
+        },
+        {
+          title: 'Opening of Classes',
+          description: 'Classes start August 5, 2025.',
+          date: '2025-06-21T23:04:00Z',
+        },
+      ]);
+    });
+}, []);
   
   const tileClassName = ({ date, view }) => {
     if (view === 'month') {

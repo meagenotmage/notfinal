@@ -14,10 +14,16 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
 
-// Sample events (no backend yet)
+// Sample events for hover tooltips
 const sampleEvents = {
-  '2026-04-10': { title: 'Journalism Fair', description: 'Visit booths and join workshops at the Main Hall.' },
-  '2026-04-22': { title: 'Org Registration Deadline', description: 'Last day to submit forms for org registration.' },
+  '2026-04-10': {
+    title: 'Journalism Fair',
+    description: 'Visit booths and join workshops at the Main Hall.',
+  },
+  '2026-04-22': {
+    title: 'Org Registration Deadline',
+    description: 'Last day to submit forms for org registration.',
+  },
 };
 
 // Calendar styles
@@ -57,32 +63,51 @@ export default function Landing() {
   const today = new Date();
 
   useEffect(() => {
-    axios.get('https://coc-website.onrender.com')
-      .then(res => setAnnouncements(res.data))
+    axios
+      .get('https://coc-website.onrender.com')
+      .then((res) => setAnnouncements(res.data.announcements || []))
       .catch(() => {
         setAnnouncements([
-          { title: 'Hello, Welcome Back', description: 'Ready to kickstart the year? Meet us at the lobby at 10:30 AM.', date: '2025-06-21T23:42:00Z' },
-          { title: 'Opening of Classes', description: 'Classes start August 5, 2025.', date: '2025-06-21T23:05:00Z' },
+          {
+            title: 'Hello, Welcome Back',
+            description:
+              'Ready to kickstart the year? Meet us at the lobby at 10:30 AM.',
+            date: '2025-06-21T23:42:00Z',
+          },
+          {
+            title: 'Opening of Classes',
+            description: 'Classes start August 5, 2025.',
+            date: '2025-06-21T23:05:00Z',
+          },
         ]);
       });
   }, []);
 
   const tileContent = ({ date }) => {
     const key = date.toISOString().split('T')[0];
-    if (sampleEvents[key]) {
-      return (
-        <Tooltip title={sampleEvents[key].title} placement="top" arrow>
-          <div className="event-dot" style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: '#7f1f1f', margin: '4px auto 0' }} />
-        </Tooltip>
-      );
-    }
-    return null;
+    const event = sampleEvents[key];
+    return event ? (
+      <Tooltip title={event.title} placement="top" arrow>
+        <div
+          className="event-dot"
+          style={{
+            width: 6,
+            height: 6,
+            borderRadius: '50%',
+            backgroundColor: '#7f1f1f',
+            margin: '4px auto 0',
+          }}
+        />
+      </Tooltip>
+    ) : null;
   };
 
   const tileClassName = ({ date, view }) => {
     if (
       view === 'month' &&
-      date.toDateString() === today.toDateString()
+      date.getFullYear() === today.getFullYear() &&
+      date.getMonth() === today.getMonth() &&
+      date.getDate() === today.getDate()
     ) {
       return 'active-day';
     }
@@ -107,22 +132,58 @@ export default function Landing() {
         }}
       >
         <Container maxWidth="lg">
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', py: 2 }}>
-            <Box component="img" src="https://i.imgur.com/5JOU2jC.png" alt="Logo" sx={{ height: 50 }} />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              py: 2,
+              alignItems: 'center',
+            }}
+          >
+            <Box
+              component="img"
+              src="https://i.imgur.com/5JOU2jC.png"
+              alt="Logo"
+              sx={{ height: 50 }}
+            />
             <Box sx={{ display: 'flex', gap: 4 }}>
-              {['Home', 'Order', 'Feedback', 'Processing Logs', 'About Us'].map((item, i) => (
-                <Typography key={i} sx={{ cursor: 'pointer', color: 'white' }}>{item}</Typography>
-              ))}
+              {['Home', 'Order', 'Feedback', 'Processing Logs', 'About Us'].map(
+                (item, i) => (
+                  <Typography key={i} sx={{ cursor: 'pointer', color: 'white' }}>
+                    {item}
+                  </Typography>
+                )
+              )}
             </Box>
           </Box>
 
-          <Box sx={{ flexGrow: 1, textAlign: 'center', mt: 10 }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              textAlign: 'center',
+              mt: 10,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <Typography variant="overline">THE VOICE OF THE UNIVERSITY</Typography>
-            <Typography variant="h3" fontWeight="bold">College of Communications</Typography>
-            <Typography variant="subtitle1" sx={{ color: '#e0e0e0' }}>Ano ang description ka college</Typography>
+            <Typography variant="h3" fontWeight="bold">
+              College of Communications
+            </Typography>
+            <Typography variant="subtitle1" sx={{ color: '#e0e0e0' }}>
+              Ano ang description ka college
+            </Typography>
             <Button
               variant="contained"
-              sx={{ mt: 3, px: 4, py: 1, backgroundColor: '#9a2424', '&:hover': { backgroundColor: '#7f1f1f' } }}
+              sx={{
+                mt: 3,
+                px: 4,
+                py: 1,
+                backgroundColor: '#9a2424',
+                '&:hover': { backgroundColor: '#7f1f1f' },
+              }}
             >
               Apply Here
             </Button>
@@ -134,7 +195,6 @@ export default function Landing() {
       <Box sx={{ backgroundColor: '#f5f5f5', py: 6 }}>
         <Container maxWidth="lg">
           <Box sx={{ display: 'flex', gap: 4, flexDirection: { xs: 'column', md: 'row' } }}>
-            
             {/* Calendar */}
             <Box sx={{ flex: '1 1 42%' }}>
               <Paper elevation={3} sx={{ p: 3, borderRadius: '16px' }}>
@@ -163,15 +223,32 @@ export default function Landing() {
                 {announcements.map((announcement, index) => (
                   <Box key={index}>
                     <Box
-                      sx={{ display: 'flex', justifyContent: 'space-between', cursor: 'pointer', py: 2 }}
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-start',
+                        py: 2,
+                        cursor: 'pointer',
+                      }}
                       onClick={() => setSelectedAnnouncement(announcement)}
                     >
                       <Box>
-                        <Typography variant="body1" fontWeight="bold">{announcement.title}</Typography>
-                        <Typography variant="body2" color="text.secondary" noWrap>{announcement.description}</Typography>
+                        <Typography variant="body1" fontWeight="bold">
+                          {announcement.title}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" noWrap>
+                          {announcement.description}
+                        </Typography>
                       </Box>
-                      <Typography variant="caption" sx={{ whiteSpace: 'nowrap', ml: 2 }}>
-                        {new Date(announcement.date).toLocaleString([], { month: 'short', day: 'numeric', year: 'numeric' })}
+                      <Typography
+                        variant="caption"
+                        sx={{ whiteSpace: 'nowrap', ml: 2 }}
+                      >
+                        {new Date(announcement.date).toLocaleString([], {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric',
+                        })}
                       </Typography>
                     </Box>
                     {index < announcements.length - 1 && <Divider />}
@@ -183,7 +260,7 @@ export default function Landing() {
         </Container>
       </Box>
 
-      {/* Modal for Announcement Details */}
+      {/* Announcement Modal */}
       <Modal
         open={!!selectedAnnouncement}
         onClose={() => setSelectedAnnouncement(null)}
@@ -192,12 +269,16 @@ export default function Landing() {
         <Paper sx={{ p: 4, maxWidth: 500, outline: 'none' }}>
           {selectedAnnouncement && (
             <>
-              <Typography variant="h6" fontWeight="bold">{selectedAnnouncement.title}</Typography>
+              <Typography variant="h6" fontWeight="bold">
+                {selectedAnnouncement.title}
+              </Typography>
               <Typography variant="caption" color="text.secondary">
                 {new Date(selectedAnnouncement.date).toLocaleString()}
               </Typography>
               <Divider sx={{ my: 2 }} />
-              <Typography variant="body1">{selectedAnnouncement.description}</Typography>
+              <Typography variant="body1">
+                {selectedAnnouncement.description}
+              </Typography>
             </>
           )}
         </Paper>

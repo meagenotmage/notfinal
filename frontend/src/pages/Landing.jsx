@@ -211,7 +211,7 @@ export default function Landing() {
       >
         <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 2, width: '100%' }}>
-                <Box component="img" src="https://i.imgur.com/2290M45.png" alt="Logo" sx={{ height: '55px', width: '55px' }} />
+                <Box component="img" src="/images/COCSC.png" alt="Logo" sx={{ height: '55px', width: '55px' }} />
                 <Box sx={{ display: 'flex', gap: 4, alignItems: 'center', typography: 'body1' }}>
                     <Typography sx={{ color: 'white', borderBottom: '2px solid #9a2424', cursor: 'pointer', fontWeight: 'bold' }}>Home</Typography>
                     <Typography sx={{ color: 'white', cursor: 'pointer', '&:hover': { color: '#ddd' } }}>Order</Typography>
@@ -233,9 +233,9 @@ export default function Landing() {
                 <Button
                     variant="contained"
                     sx={{ 
-                        mt: 3, px: 5, py: 1.5, backgroundColor: '#9a2424', 
+                        mt: 2, px: 4, py: 1.2, backgroundColor: '#9a2424', 
                         '&:hover': { backgroundColor: '#7f1f1f' },
-                        textTransform: 'none', borderRadius: '4px', fontSize: '1rem'
+                        textTransform: 'none', borderRadius: '3px', fontSize: '1rem'
                     }}
                 >
                     Know More
@@ -375,46 +375,59 @@ export default function Landing() {
 
       {/* --- FOOTER --- */}
       <Box component="footer" sx={{ backgroundColor: '#f5f5f5', borderTop: '1px solid #e0e0e0', py: 6 }}>
-        <Container maxWidth="lg">
-            <Grid container spacing={5}>
-                <Grid item xs={12} md={4}>
-                    <Box sx={{ display: 'center', alignItems: 'center', mb: 2 }}>
-                        <Box component="img" src="https://i.imgur.com/2290M45.png" alt="Footer Logo" sx={{ height: '50px', width: '50px', mr: 1.5 }} />
-                    </Box>
-                    <Typography variant="body2" color="text.secondary" lineHeight={1.8}>
-                        WVSU College of Communication, Luna St., La Paz <br />
-                        Iloilo City, Philippines 5000
-                    </Typography>
-                    <Typography variant="body2" color="text.primary" fontWeight="medium" sx={{mt: 2}}>{'coc-sc@wvsu.edu.ph'}</Typography>
-                    <Typography variant="body2" color="text.primary" fontWeight="medium">{'admission.coc@wvsu.edu.ph'}</Typography>
-                </Grid>
-                <Grid item xs={6} md={2}>
-                    <Typography fontWeight="bold" gutterBottom sx={{mb: 2}}>Menu</Typography>
-                    <Link href="#" color="textSecondary" display="block" variant="body2" sx={{mb: 1.5}} underline="hover">Orders</Link>
-                    <Link href="#" color="textSecondary" display="block" variant="body2" sx={{mb: 1.5}} underline="hover">Feedback</Link>
-                    <Link href="#" color="textSecondary" display="block" variant="body2" sx={{mb: 1.5}} underline="hover">Processing Logs</Link>
-                    <Link href="#" color="textSecondary" display="block" variant="body2" sx={{mb: 1.5}} underline="hover">About Us</Link>
-                </Grid>
-                <Grid item xs={6} md={3}>
-                    <Typography fontWeight="bold" gutterBottom sx={{mb: 2}}>Social Media</Typography>
-                    <Box>
-                        <IconButton sx={{border: '1px solid #ccc', borderRadius: '8px', mr: 1}}><Twitter fontSize="small"/></IconButton>
-                        <IconButton sx={{border: '1px solid #ccc', borderRadius: '8px', mr: 1}}><Facebook fontSize="small"/></IconButton>
-                        <IconButton sx={{border: '1px solid #ccc', borderRadius: '8px'}}><Instagram fontSize="small"/></IconButton>
-                    </Box>
-                </Grid>
-                <Grid item xs={12} md={3} sx={{ display: 'flex', alignItems: 'left', justifyContent: {xs: 'flex-start', md: 'center'}, gap: 5, mt: {xs: 4, md: 0}}}>
-                    <Box component="img" src="https://i.imgur.com/L9eBso7.png" alt="WVSU Logo" sx={{ height: 70, objectFit: 'contain' }} />
-                    <Box component="img" src="https://i.imgur.com/fMOMzAJ.png" alt="Communication College Logo" sx={{ height: 70, objectFit: 'contain' }} />
-                </Grid>
-            </Grid>
-             <Divider sx={{ my: 4 }} />
-             <Typography variant="body2" color="text.secondary" textAlign="center">
-                Copyright © COCSC 2025. All Rights Reserved.
-             </Typography>
-        </Container>
-      </Box>
-      <Box sx={{height: '10px', backgroundColor: '#9a2424'}} />
+  <Container maxWidth="lg">
+    <Grid container spacing={5} justifyContent="center">
+      {/* Column 1: Address */}
+      <Grid item xs={12} md={3} sx={{ textAlign: 'left' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'left', mb: 2 }}>
+          <Box component="img" src="/images/COCSC.png" alt="Footer Logo" sx={{ height: '50px', width: '50px' }} />
+        </Box>
+        <Typography variant="body2" color="text.secondary" lineHeight={1.8} textAlign="flex-start">
+          WVSU College of Communication, Luna St., La Paz<br />
+          Iloilo City, Philippines 5000
+        </Typography>
+        <Typography variant="body2" color="text.primary" fontWeight="medium" sx={{ mt: 2 }}>
+          coc-sc@wvsu.edu.ph
+        </Typography>
+        <Typography variant="body2" color="text.primary" fontWeight="medium">
+          admission.coc@wvsu.edu.ph
+        </Typography>
+      </Grid>
+
+      {/* Column 2: Menu */}
+      <Grid item xs={6} md={2}>
+        <Typography fontWeight="bold" gutterBottom sx={{ mb: 2 }}>Menu</Typography>
+        <Link href="#" variant="body2" display="block" sx={{ mb: 1.5, color: 'rgb(134, 134, 134)'}} underline="hover">Orders</Link>
+        <Link href="#" variant="body2" display="block" sx={{ mb: 1.5, color: 'rgb(134, 134, 134)' }} underline="hover">Feedback</Link>
+        <Link href="#" variant="body2" display="block" sx={{ mb: 1.5, color: 'rgb(134, 134, 134)' }} underline="hover">Processing Logs</Link>
+        <Link href="#" variant="body2" display="block" sx={{ mb: 1.5, color: 'rgb(134, 134, 134)'}} underline="hover">About Us</Link>
+      </Grid>
+
+      {/* Column 3: Socials */}
+      <Grid item xs={6} md={3}>
+        <Typography fontWeight="bold" gutterBottom sx={{ mb: 2 }}>Social Media</Typography>
+        <Box>
+          <IconButton sx={{ border: '1px solid #ccc', borderRadius: '8px', mr: 1 }}><Twitter fontSize="small" /></IconButton>
+          <IconButton sx={{ border: '1px solid #ccc', borderRadius: '8px', mr: 1 }}><Facebook fontSize="small" /></IconButton>
+          <IconButton sx={{ border: '1px solid #ccc', borderRadius: '8px' }}><Instagram fontSize="small" /></IconButton>
+        </Box>
+      </Grid>
+
+      {/* Column 4: Logos */}
+      <Grid item xs={12} md={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 5, mt: { xs: 4, md: 0 } }}>
+        <Box component="img" src="/images/wvsu.png" alt="WVSU Logo" sx={{ height: 70, objectFit: 'contain' }} />
+        <Box component="img" src="/images/coc.png" alt="Communication College Logo" sx={{ height: 70, objectFit: 'contain' }} />
+      </Grid>
+    </Grid>
+
+    <Divider sx={{ my: 4 }} />
+    <Typography variant="body2" color="text.secondary" textAlign="center">
+      Copyright © COCSC 2025. All Rights Reserved.
+    </Typography>
+  </Container>
+</Box>
+<Box sx={{ height: '3px', backgroundColor: '#9a2424' }} />
+
     </>
   );
 }
